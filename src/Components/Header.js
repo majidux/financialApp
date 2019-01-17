@@ -6,13 +6,13 @@ export default class Header extends Component {
         return (
             <View style={styles._header}>
                 <View style={styles.inHeader}>
-                    <View>
+                    <View style={styles.imagesView}>
                         <Image
                             source={require('../Assets/image/three-lines.png')}
                             
                         />
                     </View>
-                    <View>
+                    <View style={[styles.imagesView,{alignItems: 'flex-end'}]}>
                         <Image
                             source={require('../Assets/image/12.jpg')}
                             style={styles._image}
@@ -39,5 +39,8 @@ const styles = StyleSheet.create({
         borderRadius:30,
         width:50,
         height:50
+    },
+    imagesView:{
+        flex:1,
     }
 });

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native';
+import {View, Text, StyleSheet, Image,ActivityIndicator} from 'react-native';
 
 export default class Body extends Component {
     render() {
@@ -8,13 +8,15 @@ export default class Body extends Component {
                 {
                   this.props.lastData &&  this.props.lastData.map( (item,i)=> <Text key={i}>{item.name.first.charAt(0).toUpperCase()+item.name.first.slice(1).toLowerCase()}</Text>)
                 }
+                
+                {!this.props.loading && <ActivityIndicator/>}
             </View>
         );
     }
 }
 const styles = StyleSheet.create({
     _body: {
-        flex: 5,
+        flex: 4,
         backgroundColor:'lightgreen'
     }
 });

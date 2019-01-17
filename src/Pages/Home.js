@@ -32,12 +32,11 @@ export default class Home extends Component {
     
     
     render() {
-        let [a,b,...lastData]=this.state.lastData;
         return (
             <View style={styles._home}>
                 <Header/>
                 <Slider lastData={this.state.lastData}/>
-                <Body lastData={this.state.lastData}/>
+                <Body lastData={this.state.lastData} loading={this.state.loading}/>
             </View>
         );
     }
