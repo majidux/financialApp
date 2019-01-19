@@ -1,16 +1,17 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native';
+import {View, Text, StyleSheet, Image, FlatList,ScrollView} from 'react-native';
 import Header from "../Components/Header";
 import Slider from "../Components/Slider";
 import Body from "../Components/Body";
 
+
 export default class Home extends Component {
     
-    constructor(props){
+    constructor(props) {
         super(props);
-        this.state={
-            lastData:[],
-            loading:false
+        this.state = {
+            lastData: [],
+            loading: false
         }
     }
     
@@ -20,23 +21,25 @@ export default class Home extends Component {
     
     
     fetchData = () => {
-        let lastData=this.state.lastData;
+        let lastData = this.state.lastData;
         fetch('https://randomuser.me/api/?results=10')
             .then(response => response.json())
             .then(data =>
-                this.setState({lastData: [...lastData, ...data.results], loading: true})
+                this.setState({lastData: [...lastData, ...data.results], loading: true}),
             )
-            .catch(error=> alert('Disconnected'))
+            .catch(error => alert('Disconnected'))
     };
     
     
-    
     render() {
+        
         return (
             <View style={styles._home}>
-                <Header/>
-                <Slider lastData={this.state.lastData}/>
+         <ScrollView>
+                <Header profilePhoto={this.state.lastData}/>
+                < Slider lastData={this.state.lastData}/>
                 <Body lastData={this.state.lastData} loading={this.state.loading}/>
+         </ScrollView>
             </View>
         );
     }
@@ -44,6 +47,6 @@ export default class Home extends Component {
 const styles = StyleSheet.create({
     _home: {
         flex: 1,
-        backgroundColor:'wheat'
+        backgroundColor: 'wheat'
     }
 });

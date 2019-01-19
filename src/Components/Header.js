@@ -17,6 +17,7 @@ export default class Header extends Component {
                             source={require('../Assets/image/12.jpg')}
                             style={styles._image}
                         />
+                        {/*<Text>{this.props.profilePhoto}</Text>*/}
                     </View>
                 </View>
             </View>
@@ -25,8 +26,9 @@ export default class Header extends Component {
 }
 const styles = StyleSheet.create({
     _header: {
-        flex: 1,
-        backgroundColor:'#4d4f5e'
+        // flex: 1,
+        backgroundColor:'#424451',
+        minHeight: 80
     },
     inHeader:{
         flexDirection: 'row',
