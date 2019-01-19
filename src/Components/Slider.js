@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, Image, FlatList} from 'react-native';
+import {View, Text, StyleSheet, Image, FlatList, ActivityIndicator} from 'react-native';
 
 export default class Slider extends Component {
+    
+    // loading = () => !this.props.loading && <View style={{justifyContent:'center',alignItems:'center',borderColor:'#fff',borderWidth: 3,flex:1,flexDirection:'row'}}><ActivityIndicator color={'#fff'}/></View>;
     render() {
         return (
             <View style={styles._slider}>
@@ -9,12 +11,14 @@ export default class Slider extends Component {
                     <View><Text style={styles.titleColor}>Cards</Text></View>
                     <View><Image source={require('../Assets/image/add.png')}/></View>
                 </View>
+                {!this.props.loading && <ActivityIndicator color={'#fff'} size={'large'}/>}
                 <View style={{flex: 6}}>
                     <FlatList
+                        pagingEnabled
                         data={this.props.lastData}
                         keyExtractor={item => item.email}
                         horizontal={true}
-                        
+                        // ListHeaderComponent={this.loading}
                         showsHorizontalScrollIndicator={false}
                         renderItem={({item}) =>
                             <View style={styles.card}>

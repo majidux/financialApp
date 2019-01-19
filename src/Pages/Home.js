@@ -38,7 +38,7 @@ export default class Home extends Component {
                 <Header profilePhoto={this.state.lastData}/>
          <ScrollView>
                 
-                < Slider lastData={this.state.lastData}/>
+                < Slider lastData={this.state.lastData} loading={this.state.loading}/>
                 <Body lastData={this.state.lastData} loading={this.state.loading}/>
          </ScrollView>
             </View>

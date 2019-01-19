@@ -6,7 +6,7 @@ export default class Body extends Component {
     render() {
         return (
             <View style={styles._body}>
-                {!this.props.loading && <ActivityIndicator/>}
+                {!this.props.loading && <ActivityIndicator color={'#414352'} size={'large'}/>}
                 {
                 this.props.lastData && this.props.lastData.map((item, i) =>
                     <View style={styles.pocket} key={i}>
