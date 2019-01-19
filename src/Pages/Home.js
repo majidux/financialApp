@@ -35,8 +35,9 @@ export default class Home extends Component {
         
         return (
             <View style={styles._home}>
-         <ScrollView>
                 <Header profilePhoto={this.state.lastData}/>
+         <ScrollView>
+                
                 < Slider lastData={this.state.lastData}/>
                 <Body lastData={this.state.lastData} loading={this.state.loading}/>
          </ScrollView>
@@ -47,6 +48,5 @@ export default class Home extends Component {
 const styles = StyleSheet.create({
     _home: {
         flex: 1,
-        backgroundColor: 'wheat'
     }
 });
