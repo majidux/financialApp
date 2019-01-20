@@ -1,10 +1,26 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, Image, FlatList, ActivityIndicator} from 'react-native';
+import {View, Text, StyleSheet, Image, FlatList, ActivityIndicator, Dimensions,Animated} from 'react-native';
+
+const { width } = Dimensions.get('window');
 
 export default class Slider extends Component {
     
-    // loading = () => !this.props.loading && <View style={{justifyContent:'center',alignItems:'center',borderColor:'#fff',borderWidth: 3,flex:1,flexDirection:'row'}}><ActivityIndicator color={'#fff'}/></View>;
+    constructor(props){
+        super(props);
+        this.state={
+        
+        };
+        
+    }
+    
+    
+    scrollX = new Animated.Value(0);
+    
     render() {
+        let _loadingDots = this.props.lastData;
+
+        let position = Animated.divide(this.scrollX, width);
+        
         return (
             <View style={styles._slider}>
                 <View style={styles._title}>
@@ -18,7 +34,8 @@ export default class Slider extends Component {
                         data={this.props.lastData}
                         keyExtractor={item => item.email}
                         horizontal={true}
-                        // ListHeaderComponent={this.loading}
+                        onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: this.scrollX }}}])}
+                        scrollEventThrottle={16}
                         showsHorizontalScrollIndicator={false}
                         renderItem={({item}) =>
                             <View style={styles.card}>
@@ -37,7 +54,8 @@ export default class Slider extends Component {
                                             <Text style={[styles.greyColor]}>Cardholder Name</Text>
                                         </View>
                                         <View style={{alignItems: 'flex-start'}}>
-                                            <Text style={[styles.whiteColor, styles.boldFont]}>{`${item.name.first.charAt(0).toUpperCase()}${item.name.first.slice(1).toLowerCase()} ${item.name.last.charAt(0).toUpperCase()}${item.name.last.slice(1).toLowerCase()}`}</Text>
+                                            <Text
+                                                style={[styles.whiteColor, styles.boldFont]}>{`${item.name.first.charAt(0).toUpperCase()}${item.name.first.slice(1).toLowerCase()} ${item.name.last.charAt(0).toUpperCase()}${item.name.last.slice(1).toLowerCase()}`}</Text>
                                         </View>
                                     </View>
                                     <View style={styles.expireDate}>
@@ -54,24 +72,39 @@ export default class Slider extends Component {
                 </View>
                 
                 <View style={styles.threeDots}>
-                    <View>
-                        <Image
-                            source={require('../Assets/image/circle.png')}
-                            style={{width:8,height:8}}
-                        />
-                    </View>
-                    <View style={{marginHorizontal: 10}}>
-                        <Image
-                            source={require('../Assets/image/white-circle.png')}
-                            style={{width:8,height:8}}
-                        />
-                    </View>
-                    <View>
-                        <Image
-                            source={require('../Assets/image/circle.png')}
-                            style={{width:8,height:8}}
-                        />
-                    </View>
+    
+    
+                    {_loadingDots.map((_, i) => {
+                        let opacity = position.interpolate({
+                            inputRange: [i - 1, i, i + 1],
+                            outputRange: [0.3, 1, 0.3],
+                            extrapolate: 'extend',
+                        });
+                        return (
+                            <Animated.View key={i} style={{ opacity,justifyContent:'center',alignItems:'center', height: 10, width: 10, backgroundColor: '#595959', margin: 8, borderRadius: 5 }} />
+                        );
+                    })}
+                    
+                    
+                    
+                    {/*<View>*/}
+                        {/*<Image*/}
+                            {/*source={require('../Assets/image/circle.png')}*/}
+                            {/*style={{width: 8, height: 8}}*/}
+                        {/*/>*/}
+                    {/*</View>*/}
+                    {/*<View style={{marginHorizontal: 10}}>*/}
+                        {/*<Image*/}
+                            {/*source={require('../Assets/image/white-circle.png')}*/}
+                            {/*style={{width: 8, height: 8}}*/}
+                        {/*/>*/}
+                    {/*</View>*/}
+                    {/*<View>*/}
+                        {/*<Image*/}
+                            {/*source={require('../Assets/image/circle.png')}*/}
+                            {/*style={{width: 8, height: 8}}*/}
+                        {/*/>*/}
+                    {/*</View>*/}
                 </View>
             
             </View>
@@ -139,12 +172,12 @@ const styles = StyleSheet.create({
         width: 70,
         height: 20,
     },
-    threeDots:{
-        backgroundColor:'#353542',
+    threeDots: {
+        backgroundColor: '#353542',
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        paddingVertical: 15
+        paddingVertical: 10
     }
     
 });

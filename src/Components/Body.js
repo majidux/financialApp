@@ -14,7 +14,7 @@ export default class Body extends Component {
                             <View style={styles.balance}>
                                 <View style={styles.left}>
                                     <Text style={[styles.greyColor, styles.fontSize13]}>Your Balance</Text>
-                                    <Text style={[styles.whiteColor, {fontSize: 33}]}>{item.location.postcode}</Text>
+                                    <Text style={[styles.whiteColor, {fontSize: 33}]} adjustsFontSizeToFit={true}>${item.location.postcode}</Text>
                                 </View>
                                 <View style={styles.right}>
                                     <View style={[styles.outcome, {borderBottomWidth: 1, borderColor: '#545663'}]}>
